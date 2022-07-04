@@ -1,10 +1,28 @@
 package opportunitiesSmartHouse;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
 public class TestsForRadio {
+
+    @ParameterizedTest
+    @CsvFileSource (resources = "/DataForTestRadio.csv")
+    public void testRadioInit(int expectedQtyChannel, int expectedMaxChannel, int newQtyChannel){
+        Radio radio = new Radio(newQtyChannel);
+        int[] actual = {radio.getQtyChannel(), radio.getMaxChannel()};
+        int[] expected = {expectedQtyChannel, expectedMaxChannel};
+        Assertions.assertArrayEquals(actual, expected);
+    }
+
+    @Test
+    public void testRadioDefaultInit(){
+        Radio radio = new Radio();
+        int[] actual = {radio.getQtyChannel(), radio.getMaxChannel()};
+        int[] expected = {10, 9};
+        Assertions.assertArrayEquals(actual, expected);
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/DataForTestSetCurrentChannel.csv")
